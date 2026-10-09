@@ -16,6 +16,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     python3 \
     make \
     wget \
+    ca-certificates \
     build-essential \
     unzip
 
@@ -29,9 +30,9 @@ RUN wget https://github.com/TexasInstruments/mspm0-sdk/archive/refs/tags/mspm0_s
 
 # Install TI-Clang for curr machine's arch
 RUN if [ $(uname -m) = "x86_64" ]; then \
-    wget -O ti_cgt_armllvm_4.0.3.LTS_linux_installer.bin https://dr-download.ti.com/software-development/ide-configuration-compiler-or-debugger/MD-ayxs93eZNN/4.0.3.LTS/ti_cgt_armllvm_4.0.3.LTS_linux-x64_installer.bin --ca-certificate=SSLCerts/mitre-chain.pem; \
+    wget -O ti_cgt_armllvm_4.0.3.LTS_linux_installer.bin https://dr-download.ti.com/software-development/ide-configuration-compiler-or-debugger/MD-ayxs93eZNN/4.0.3.LTS/ti_cgt_armllvm_4.0.3.LTS_linux-x64_installer.bin; \
     elif [ $(uname -m) = "aarch64" ] || [ $(uname -m) = "arm64" ]; then \
-    wget -O ti_cgt_armllvm_4.0.3.LTS_linux_installer.bin https://dr-download.ti.com/software-development/ide-configuration-compiler-or-debugger/MD-ayxs93eZNN/4.0.3.LTS/ti_cgt_armllvm_4.0.3.LTS_linux-arm64_installer.bin --ca-certificate=SSLCerts/mitre-chain.pem; \
+    wget -O ti_cgt_armllvm_4.0.3.LTS_linux_installer.bin https://dr-download.ti.com/software-development/ide-configuration-compiler-or-debugger/MD-ayxs93eZNN/4.0.3.LTS/ti_cgt_armllvm_4.0.3.LTS_linux-arm64_installer.bin; \
     else \
     $(false); \
     fi && \
